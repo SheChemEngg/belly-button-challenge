@@ -85,18 +85,21 @@ function barPlot(subjectId, data) {
       // Get the otu_ids, sample values
       let otu_ids = subjectData.otu_ids;
       let sample_values = subjectData.sample_values;
+      let otu_labels = subjectData.otu_labels;
 
       // Log the data to the console
-      console.log(otu_ids, sample_values);
+      console.log(otu_ids, sample_values, otu_labels);
 
       // Set top ten ITUs already listed in descending order
       let yValues = otu_ids.slice(0,10).map(id => `<b>OTU ${id}  </b>`).reverse();
       let xValues = sample_values.slice(0,10).reverse();
+      let labels = otu_labels.slice(0,10).reverse();
             
       // Set up the trace for the bar chart
       let traceBar = [{
           x: xValues,
           y: yValues,
+          text: labels,
           type: "bar",
           orientation: "h"
       }];
@@ -107,8 +110,7 @@ function barPlot(subjectId, data) {
             text: "<b>Top 10 OTUs On a Subject</b>",
             font: {color: "black", size: 15}
           },
-          xaxis: {
-            // dtick: 50, 
+          xaxis: { 
             gridcolor: 'rgba(0,0,0,0.2)',
           },
           width: 550, 
@@ -137,15 +139,17 @@ function bubblePlot(subjectId, data) {
       // Get the otu_ids, sample values
       let otu_ids = subjectData.otu_ids;
       let sample_values = subjectData.sample_values;
+      let otu_labels = subjectData.otu_labels;
 
       // Log the data to the console
-      console.log(otu_ids, sample_values);
+      console.log(otu_ids, sample_values, otu_labels);
 
             
       // Set up the trace for the bar chart
       let traceBubble = [{
           x: otu_ids,
           y: sample_values,
+          text: otu_labels,
 
           mode: "markers",
           marker: {
@@ -202,7 +206,6 @@ function gaugeDial(subjectId, data) {
 
       // Use Object.entries to get washFrequency key/value pairs
       let wfreq = Object.values(subjectData)[6];
-      // console.log("Hello World");
       console.log(wfreq);
 
       // https://plotly.com/javascript/gauge-charts/
